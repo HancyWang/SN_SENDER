@@ -1,0 +1,9 @@
+D:\VS_Practice\SN_Sender\SN_Sender\bin\Release\SN_Sender.exe.config
+D:\VS_Practice\SN_Sender\SN_Sender\bin\Release\SN_Sender.exe
+D:\VS_Practice\SN_Sender\SN_Sender\bin\Release\SN_Sender.pdb
+D:\VS_Practice\SN_Sender\SN_Sender\obj\Release\SN_Sender.Form1.resources
+D:\VS_Practice\SN_Sender\SN_Sender\obj\Release\SN_Sender.Properties.Resources.resources
+D:\VS_Practice\SN_Sender\SN_Sender\obj\Release\SN_Sender.csproj.GenerateResource.Cache
+D:\VS_Practice\SN_Sender\SN_Sender\obj\Release\SN_Sender.exe
+D:\VS_Practice\SN_Sender\SN_Sender\obj\Release\SN_Sender.pdb
+D:\VS_Practice\SN_Sender\SN_Sender\obj\Release\SN_Sender.csprojResolveAssemblyReference.cache
