@@ -23,6 +23,19 @@ namespace SN_Sender
         private const int FRAME_ID = 3;
         private List<byte> m_SN_list = new List<byte>();
 
+        public delegate void DLsetValue();
+
+        //public DLsetValue m_dl_stvalue;
+
+        public void setValue()
+        {
+            if (m_SN_list.Count != 0)
+            {
+                textBox_SN_recv.Text = Convert.ToString(m_SN_list);
+            }
+        }
+
+        
         //private struct SN_BITS
         //{
         //    public byte SN_BIT_0;
@@ -80,6 +93,9 @@ namespace SN_Sender
 
         private void Form1_Load(object sender, EventArgs e)
         {
+            ////指定不再捕获对错误线程的调用
+            //Control.CheckForIllegalCrossThreadCalls = false;
+
             LoadPicture();
             Init_SerialPort();
         }
@@ -98,7 +114,7 @@ namespace SN_Sender
                 catch (Exception ex)
                 {
                     m_SerialPortOpened = false;
-                    MessageBox.Show(ex.Message);
+                    MessageBox.Show("系统信息:"+ex.Message);
                     return;
                 }
                 this.button_serialPort_connect.Text = "Close";
@@ -167,28 +183,41 @@ namespace SN_Sender
         private void ParseFrame0x40()
         {
             int len = m_buffer.Count;
-            if (len != 14+4+2)
+            if (len != 10+4+2)
             {
-                MessageBox.Show("下位机发送的SN不是14位!");
+                MessageBox.Show("下位机发送的SN不是10位!");
                 return;
             }
 
             //将接收到的SN放入m_SN_list中
-            for (int i = 4; i < len; i++)
+            for (int i = 4; i < len-2; i++)
             {
-                m_SN_list[i - 4] = m_buffer[i];
+                m_SN_list.Add(m_buffer[i]);
             }
 
-            textBox_SN_recv.Text = Convert.ToString(m_SN_list);
+            string str_recv = null;
+
+            
+
+            foreach (var ch in m_SN_list)
+            {
+                str_recv += Convert.ToChar(ch);
+            }
+
+            m_SN_list.Clear(); //接收完之后，清除m_SN_list，否则会叠加
+
+            //MessageBox.Show(test);
+            textBox_SN_recv.Text = str_recv;
+            
             if (textBox_SN_recv.Text == comboBox_SN_send.Text.Trim())
             {
                 pictureBox2.Load(Environment.CurrentDirectory + @"\" + "pass.bmp");
-                MessageBox.Show("Pass");
+                //MessageBox.Show("Pass");
             }
             else
             {
                 pictureBox2.Load(Environment.CurrentDirectory + @"\" + "fail.bmp");
-                MessageBox.Show("Fail");
+               // MessageBox.Show("Fail");
             }
         }
 
@@ -203,6 +232,9 @@ namespace SN_Sender
             switch (m_buffer[FRAME_ID])
             {
                 case 0x40:   //下位机返回0x40,携带SN
+                    //MessageBox.Show(textBox_SN_recv.Text);
+                    //textBox_SN_recv.Clear();
+                    
                     ParseFrame0x40();
                     break;
                 default:
@@ -212,7 +244,7 @@ namespace SN_Sender
 
         private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
         {
-            var nPendingRead = this.serialPort1.BytesToRead;
+            int nPendingRead = this.serialPort1.BytesToRead;
             byte[] tmp = new byte[nPendingRead];
             this.serialPort1.Read(tmp, 0, nPendingRead);
 
@@ -261,6 +293,14 @@ namespace SN_Sender
 
         private void button_SN_send_Click(object sender, EventArgs e)
         {
+            //textBox_SN_recv.Invoke(new DLsetValue(setValue));
+            //textBox_SN_recv.BeginInvoke(m_dl_stvalue);
+            //if (textBox_SN_recv.Text.Length != 0)
+            //{
+            //    //textBox_SN_recv.Text = "wwwwww";
+            //    textBox_SN_recv.Clear();
+            //}
+
             string str_send = comboBox_SN_send.Text;
             //1.去除开头和结尾的空格字符
             str_send = str_send.Trim();
@@ -269,10 +309,17 @@ namespace SN_Sender
 
             //MessageBox.Show(str_send);
 
+            //MessageBox.Show(Convert.ToString(Convert.ToInt32('1')));
+           
+
             //2.检查SN是否每一位都是0-9
             foreach (var str in str_send)
             {
-                if (Convert.ToInt32(str) >= 0 && Convert.ToInt32(str) <= 9)
+                //MessageBox.Show(Convert.ToString(Convert.ToInt32(str)));
+
+                if ((Convert.ToInt32(str) >= Convert.ToInt32('0') && Convert.ToInt32(str) <= Convert.ToInt32('9')) ||
+                    (Convert.ToInt32(str) >= Convert.ToInt32('a') && Convert.ToInt32(str) <= Convert.ToInt32('z') ||
+                    (Convert.ToInt32(str) >= Convert.ToInt32('A') && Convert.ToInt32(str) <= Convert.ToInt32('Z'))))
                 {
                     continue;
                 }
@@ -284,12 +331,11 @@ namespace SN_Sender
             }
 
             //3. 检查SN的长度
-            if (str_send.Length != 14)
+            if (str_send.Length != 10)
             {
                 MessageBox.Show("请检查SN的长度!");
                 return;
             }
-
 
             if (!this.serialPort1.IsOpen)
             {
@@ -297,21 +343,34 @@ namespace SN_Sender
                 return;
             }
 
+
             //发送SN到下位机
-            byte[] buffer = new byte[20];  //4+14+2
+            byte[] buffer = new byte[20-4];  //4+10+2
             buffer[HEAD] = 0xFF;
-            buffer[LEN] = 0x12;   //4+14
+            buffer[LEN] = 0x0E;   //4+14-4
             buffer[CMDTYPE] = 0x01;
             buffer[FRAME_ID] = 0x36;
 
             int sum = 0;
+            //buffer[4] = 86;
+            for (int i = 4; i < 18-4; i++)
+            {
+                buffer[i] = Convert.ToByte(str_send[i - 4]);
+            }
+
             for (int i = 1; i < Convert.ToInt32(buffer[LEN]); i++)
             {
                 sum += buffer[i];
             }
+
             buffer[Convert.ToInt32(buffer[LEN])] = Convert.ToByte(sum / 256);   //checksum1
             buffer[Convert.ToInt32(buffer[LEN]) + 1] = Convert.ToByte(sum % 256); //checksum2
             this.serialPort1.Write(buffer, 0, Convert.ToInt32(buffer[LEN]) + 2);
+        }
+
+        private void comboBox_portName_SelectedValueChanged(object sender, EventArgs e)
+        {
+            this.serialPort1.PortName = this.comboBox_portName.Text;
         }
     }
 }
