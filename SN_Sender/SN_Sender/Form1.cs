@@ -94,8 +94,7 @@ namespace SN_Sender
         private void Form1_Load(object sender, EventArgs e)
         {
             ////指定不再捕获对错误线程的调用
-            //Control.CheckForIllegalCrossThreadCalls = false;
-
+            //System.Windows.Forms.Control.CheckForIllegalCrossThreadCalls = false;  //调试的时候可以打开这条语句
             LoadPicture();
             Init_SerialPort();
         }
