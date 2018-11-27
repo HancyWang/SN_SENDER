@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.28010.2046
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SN_Sender", "SN_Sender\SN_Sender.csproj", "{16679232-F5D7-412C-8012-16F31D3CA050}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "SN_Sender_setup", "..\..\..\..\..\..\VS_Projects\SN_Sender_setup\SN_Sender_setup.vdproj", "{7E001C87-16DB-4B93-A592-355EC179CD62}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup_SN_Sender", "Setup_SN_Sender\Setup_SN_Sender.vdproj", "{FC774C48-B832-434D-9637-FF6A271F30B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,8 @@ Global
 		{16679232-F5D7-412C-8012-16F31D3CA050}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{16679232-F5D7-412C-8012-16F31D3CA050}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{16679232-F5D7-412C-8012-16F31D3CA050}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7E001C87-16DB-4B93-A592-355EC179CD62}.Debug|Any CPU.ActiveCfg = Debug
-		{7E001C87-16DB-4B93-A592-355EC179CD62}.Debug|Any CPU.Build.0 = Debug
-		{7E001C87-16DB-4B93-A592-355EC179CD62}.Release|Any CPU.ActiveCfg = Release
-		{7E001C87-16DB-4B93-A592-355EC179CD62}.Release|Any CPU.Build.0 = Release
+		{FC774C48-B832-434D-9637-FF6A271F30B3}.Debug|Any CPU.ActiveCfg = Debug
+		{FC774C48-B832-434D-9637-FF6A271F30B3}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

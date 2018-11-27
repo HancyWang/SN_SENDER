@@ -52,12 +52,22 @@
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.serialPort1 = new System.IO.Ports.SerialPort(this.components);
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.label6 = new System.Windows.Forms.Label();
+            this.textBox_dataTime = new System.Windows.Forms.TextBox();
+            this.button_syn_RTC_to_device = new System.Windows.Forms.Button();
+            this.label7 = new System.Windows.Forms.Label();
+            this.label_syn_result = new System.Windows.Forms.Label();
+            this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            this.groupBox5.SuspendLayout();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -75,10 +85,10 @@
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(17, 16);
-            this.groupBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox1.Size = new System.Drawing.Size(276, 414);
+            this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox1.Size = new System.Drawing.Size(276, 441);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Serial Port";
@@ -87,7 +97,7 @@
             // 
             this.comboBox_parity.FormattingEnabled = true;
             this.comboBox_parity.Location = new System.Drawing.Point(116, 265);
-            this.comboBox_parity.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox_parity.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox_parity.Name = "comboBox_parity";
             this.comboBox_parity.Size = new System.Drawing.Size(148, 23);
             this.comboBox_parity.TabIndex = 12;
@@ -96,7 +106,7 @@
             // 
             this.comboBox_stopBit.FormattingEnabled = true;
             this.comboBox_stopBit.Location = new System.Drawing.Point(119, 209);
-            this.comboBox_stopBit.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox_stopBit.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox_stopBit.Name = "comboBox_stopBit";
             this.comboBox_stopBit.Size = new System.Drawing.Size(148, 23);
             this.comboBox_stopBit.TabIndex = 11;
@@ -105,7 +115,7 @@
             // 
             this.comboBox_dataBits.FormattingEnabled = true;
             this.comboBox_dataBits.Location = new System.Drawing.Point(116, 155);
-            this.comboBox_dataBits.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox_dataBits.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox_dataBits.Name = "comboBox_dataBits";
             this.comboBox_dataBits.Size = new System.Drawing.Size(148, 23);
             this.comboBox_dataBits.TabIndex = 10;
@@ -114,7 +124,7 @@
             // 
             this.comboBox_baud.FormattingEnabled = true;
             this.comboBox_baud.Location = new System.Drawing.Point(119, 101);
-            this.comboBox_baud.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox_baud.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox_baud.Name = "comboBox_baud";
             this.comboBox_baud.Size = new System.Drawing.Size(148, 23);
             this.comboBox_baud.TabIndex = 9;
@@ -123,7 +133,7 @@
             // 
             this.comboBox_portName.FormattingEnabled = true;
             this.comboBox_portName.Location = new System.Drawing.Point(119, 55);
-            this.comboBox_portName.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox_portName.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox_portName.Name = "comboBox_portName";
             this.comboBox_portName.Size = new System.Drawing.Size(148, 23);
             this.comboBox_portName.TabIndex = 8;
@@ -132,7 +142,7 @@
             // button_serialPort_connect
             // 
             this.button_serialPort_connect.Location = new System.Drawing.Point(119, 315);
-            this.button_serialPort_connect.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_serialPort_connect.Margin = new System.Windows.Forms.Padding(4);
             this.button_serialPort_connect.Name = "button_serialPort_connect";
             this.button_serialPort_connect.Size = new System.Drawing.Size(100, 29);
             this.button_serialPort_connect.TabIndex = 7;
@@ -143,7 +153,7 @@
             // pictureBox1
             // 
             this.pictureBox1.Location = new System.Drawing.Point(24, 315);
-            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox1.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox1.Name = "pictureBox1";
             this.pictureBox1.Size = new System.Drawing.Size(44, 34);
             this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -204,11 +214,11 @@
             // 
             this.groupBox2.Controls.Add(this.comboBox_SN_send);
             this.groupBox2.Controls.Add(this.button_SN_send);
-            this.groupBox2.Location = new System.Drawing.Point(337, 29);
-            this.groupBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox2.Location = new System.Drawing.Point(7, 25);
+            this.groupBox2.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox2.Size = new System.Drawing.Size(504, 140);
+            this.groupBox2.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox2.Size = new System.Drawing.Size(504, 65);
             this.groupBox2.TabIndex = 14;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "发送到下位机";
@@ -216,16 +226,16 @@
             // comboBox_SN_send
             // 
             this.comboBox_SN_send.FormattingEnabled = true;
-            this.comboBox_SN_send.Location = new System.Drawing.Point(27, 52);
-            this.comboBox_SN_send.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.comboBox_SN_send.Location = new System.Drawing.Point(27, 28);
+            this.comboBox_SN_send.Margin = new System.Windows.Forms.Padding(4);
             this.comboBox_SN_send.Name = "comboBox_SN_send";
             this.comboBox_SN_send.Size = new System.Drawing.Size(313, 23);
             this.comboBox_SN_send.TabIndex = 13;
             // 
             // button_SN_send
             // 
-            this.button_SN_send.Location = new System.Drawing.Point(375, 51);
-            this.button_SN_send.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.button_SN_send.Location = new System.Drawing.Point(375, 24);
+            this.button_SN_send.Margin = new System.Windows.Forms.Padding(4);
             this.button_SN_send.Name = "button_SN_send";
             this.button_SN_send.Size = new System.Drawing.Size(100, 29);
             this.button_SN_send.TabIndex = 12;
@@ -236,19 +246,19 @@
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.textBox_SN_recv);
-            this.groupBox3.Location = new System.Drawing.Point(337, 181);
-            this.groupBox3.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox3.Location = new System.Drawing.Point(7, 99);
+            this.groupBox3.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.groupBox3.Size = new System.Drawing.Size(504, 140);
+            this.groupBox3.Padding = new System.Windows.Forms.Padding(4);
+            this.groupBox3.Size = new System.Drawing.Size(504, 70);
             this.groupBox3.TabIndex = 15;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "从下位机读取";
             // 
             // textBox_SN_recv
             // 
-            this.textBox_SN_recv.Location = new System.Drawing.Point(27, 60);
-            this.textBox_SN_recv.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.textBox_SN_recv.Location = new System.Drawing.Point(27, 25);
+            this.textBox_SN_recv.Margin = new System.Windows.Forms.Padding(4);
             this.textBox_SN_recv.Name = "textBox_SN_recv";
             this.textBox_SN_recv.Size = new System.Drawing.Size(313, 25);
             this.textBox_SN_recv.TabIndex = 12;
@@ -256,10 +266,10 @@
             // groupBox4
             // 
             this.groupBox4.Controls.Add(this.pictureBox2);
-            this.groupBox4.Location = new System.Drawing.Point(337, 331);
-            this.groupBox4.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Location = new System.Drawing.Point(7, 176);
+            this.groupBox4.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Padding = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.groupBox4.Padding = new System.Windows.Forms.Padding(4);
             this.groupBox4.Size = new System.Drawing.Size(504, 102);
             this.groupBox4.TabIndex = 16;
             this.groupBox4.TabStop = false;
@@ -269,7 +279,7 @@
             // 
             this.pictureBox2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.pictureBox2.Location = new System.Drawing.Point(4, 22);
-            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.pictureBox2.Margin = new System.Windows.Forms.Padding(4);
             this.pictureBox2.Name = "pictureBox2";
             this.pictureBox2.Size = new System.Drawing.Size(496, 76);
             this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -286,17 +296,90 @@
             this.timer1.Enabled = true;
             this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
             // 
+            // groupBox5
+            // 
+            this.groupBox5.Controls.Add(this.groupBox2);
+            this.groupBox5.Controls.Add(this.groupBox4);
+            this.groupBox5.Controls.Add(this.groupBox3);
+            this.groupBox5.Location = new System.Drawing.Point(300, 30);
+            this.groupBox5.Name = "groupBox5";
+            this.groupBox5.Size = new System.Drawing.Size(585, 291);
+            this.groupBox5.TabIndex = 17;
+            this.groupBox5.TabStop = false;
+            this.groupBox5.Text = "SN发送";
+            // 
+            // groupBox6
+            // 
+            this.groupBox6.Controls.Add(this.label_syn_result);
+            this.groupBox6.Controls.Add(this.label7);
+            this.groupBox6.Controls.Add(this.button_syn_RTC_to_device);
+            this.groupBox6.Controls.Add(this.textBox_dataTime);
+            this.groupBox6.Controls.Add(this.label6);
+            this.groupBox6.Location = new System.Drawing.Point(301, 331);
+            this.groupBox6.Name = "groupBox6";
+            this.groupBox6.Size = new System.Drawing.Size(584, 127);
+            this.groupBox6.TabIndex = 18;
+            this.groupBox6.TabStop = false;
+            this.groupBox6.Text = "时间同步";
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Location = new System.Drawing.Point(6, 25);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(112, 15);
+            this.label6.TabIndex = 0;
+            this.label6.Text = "当前系统时间：";
+            // 
+            // textBox_dataTime
+            // 
+            this.textBox_dataTime.Location = new System.Drawing.Point(10, 44);
+            this.textBox_dataTime.Name = "textBox_dataTime";
+            this.textBox_dataTime.Size = new System.Drawing.Size(336, 25);
+            this.textBox_dataTime.TabIndex = 1;
+            // 
+            // button_syn_RTC_to_device
+            // 
+            this.button_syn_RTC_to_device.Location = new System.Drawing.Point(370, 41);
+            this.button_syn_RTC_to_device.Name = "button_syn_RTC_to_device";
+            this.button_syn_RTC_to_device.Size = new System.Drawing.Size(100, 31);
+            this.button_syn_RTC_to_device.TabIndex = 2;
+            this.button_syn_RTC_to_device.Text = "同步";
+            this.button_syn_RTC_to_device.UseVisualStyleBackColor = true;
+            this.button_syn_RTC_to_device.Click += new System.EventHandler(this.button_syn_RTC_to_device_Click);
+            // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(7, 87);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(82, 15);
+            this.label7.TabIndex = 3;
+            this.label7.Text = "同步结果：";
+            // 
+            // label_syn_result
+            // 
+            this.label_syn_result.AutoSize = true;
+            this.label_syn_result.Location = new System.Drawing.Point(111, 87);
+            this.label_syn_result.Name = "label_syn_result";
+            this.label_syn_result.Size = new System.Drawing.Size(0, 15);
+            this.label_syn_result.TabIndex = 4;
+            // 
+            // timer2
+            // 
+            this.timer2.Enabled = true;
+            this.timer2.Tick += new System.EventHandler(this.timer2_Tick);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(897, 470);
-            this.Controls.Add(this.groupBox4);
-            this.Controls.Add(this.groupBox3);
-            this.Controls.Add(this.groupBox2);
+            this.Controls.Add(this.groupBox6);
+            this.Controls.Add(this.groupBox5);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "Form1";
@@ -311,6 +394,9 @@
             this.groupBox3.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            this.groupBox5.ResumeLayout(false);
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -339,6 +425,14 @@
         private System.Windows.Forms.ComboBox comboBox_SN_send;
         private System.IO.Ports.SerialPort serialPort1;
         private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private System.Windows.Forms.GroupBox groupBox6;
+        private System.Windows.Forms.Label label_syn_result;
+        private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.Button button_syn_RTC_to_device;
+        private System.Windows.Forms.TextBox textBox_dataTime;
+        private System.Windows.Forms.Label label6;
+        private System.Windows.Forms.Timer timer2;
     }
 }
 

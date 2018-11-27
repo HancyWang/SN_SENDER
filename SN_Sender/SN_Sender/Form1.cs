@@ -236,9 +236,30 @@ namespace SN_Sender
                     
                     ParseFrame0x40();
                     break;
+                case 0x41:
+                    ParseSynRTCResult();
+                    break;
                 default:
                     break;
             }
+        }
+
+        private void ParseSynRTCResult()
+        {
+            //throw new NotImplementedException();
+            int len = m_buffer.Count;
+
+            if (m_buffer[m_buffer[LEN]- 1] == 1) //检测数据，1表示同步成功，0表示失败
+            {
+                label_syn_result.Text = "成功";
+                MessageBox.Show("同步成功!");
+            }
+            else
+            {
+                label_syn_result.Text = "失败";
+                MessageBox.Show("同步失败!");
+            }
+
         }
 
         private void serialPort1_DataReceived(object sender, SerialDataReceivedEventArgs e)
@@ -370,6 +391,61 @@ namespace SN_Sender
         private void comboBox_portName_SelectedValueChanged(object sender, EventArgs e)
         {
             this.serialPort1.PortName = this.comboBox_portName.Text;
+        }
+
+        private void GetSystemDateTime()
+        {
+            textBox_dataTime.Text = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        }
+
+        private void timer2_Tick(object sender, EventArgs e)
+        {
+            GetSystemDateTime();
+        }
+
+        private void button_syn_RTC_to_device_Click(object sender, EventArgs e)
+        {
+            if (!serialPort1.IsOpen)
+            {
+                MessageBox.Show("请先连接串口!");
+                return;
+            }
+
+            label_syn_result.Text = ""; //清空上一次结果
+
+            DateTime dt = DateTime.Now;
+            Byte year1 = Convert.ToByte(dt.Year / 100);
+            Byte year2 = Convert.ToByte(dt.Year % 100);
+            Byte month = Convert.ToByte(dt.Month);
+            Byte day = Convert.ToByte(dt.Day);
+            Byte weekDay = Convert.ToByte(dt.DayOfWeek);
+            Byte hour = Convert.ToByte(dt.Hour);
+            Byte min = Convert.ToByte(dt.Minute);
+            Byte sec = Convert.ToByte(dt.Second);
+
+            byte[] buffer = new byte[14];
+            buffer[HEAD] = 0xFF;
+            buffer[LEN] = 12;
+            buffer[CMDTYPE] = 0x01;
+            buffer[FRAME_ID] = 0x38;
+
+            buffer[4 + 0] = year1;
+            buffer[4 + 1] = year2;
+            buffer[4 + 2] = month;
+            buffer[4 + 3] = day;
+            buffer[4 + 4] = weekDay;
+            buffer[4 + 5] = hour;
+            buffer[4 + 6] = min;
+            buffer[4 + 7] = sec;
+
+            int sum = 0;
+            for (int i = 1; i < Convert.ToInt32(buffer[LEN]); i++)
+            {
+                sum += buffer[i];
+            }
+            buffer[Convert.ToInt32(buffer[LEN])] = Convert.ToByte(sum / 256);
+            buffer[Convert.ToInt32(buffer[LEN]) + 1] = Convert.ToByte(sum % 256);
+            this.serialPort1.Write(buffer, 0, Convert.ToInt32(buffer[LEN]) + 2);
         }
     }
 }
