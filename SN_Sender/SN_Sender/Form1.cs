@@ -239,8 +239,27 @@ namespace SN_Sender
                 case 0x41:
                     ParseSynRTCResult();
                     break;
+                case 0x42:
+                    ParseRecoveryResult();
+                    break;
                 default:
                     break;
+            }
+        }
+
+        private void ParseRecoveryResult()
+        {
+            int len = m_buffer.Count;
+
+            if (m_buffer[m_buffer[LEN] - 1] == 1) //检测数据，1表示同步成功，0表示失败
+            {
+                label_recovery_result.Text = "成功";
+                MessageBox.Show("恢复成功!");
+            }
+            else
+            {
+                label_recovery_result.Text = "失败";
+                MessageBox.Show("恢复失败!");
             }
         }
 
@@ -437,6 +456,33 @@ namespace SN_Sender
             buffer[4 + 5] = hour;
             buffer[4 + 6] = min;
             buffer[4 + 7] = sec;
+
+            int sum = 0;
+            for (int i = 1; i < Convert.ToInt32(buffer[LEN]); i++)
+            {
+                sum += buffer[i];
+            }
+            buffer[Convert.ToInt32(buffer[LEN])] = Convert.ToByte(sum / 256);
+            buffer[Convert.ToInt32(buffer[LEN]) + 1] = Convert.ToByte(sum % 256);
+            this.serialPort1.Write(buffer, 0, Convert.ToInt32(buffer[LEN]) + 2);
+        }
+
+        private void button_recovery_Click(object sender, EventArgs e)
+        {
+            if (!serialPort1.IsOpen)
+            {
+                MessageBox.Show("请先连接串口!");
+                return;
+            }
+
+            label_recovery_result.Text = ""; //清空上一次结果
+
+            byte[] buffer = new byte[6];
+            buffer[HEAD] = 0xFF;
+            buffer[LEN] = 4;
+            buffer[CMDTYPE] = 0x01;
+            buffer[FRAME_ID] = 0x42;
+
 
             int sum = 0;
             for (int i = 1; i < Convert.ToInt32(buffer[LEN]); i++)
