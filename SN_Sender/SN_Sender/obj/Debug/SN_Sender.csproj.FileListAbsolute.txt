@@ -7,3 +7,12 @@ D:\VS_Practice\SN_Sender\SN_Sender\obj\Debug\SN_Sender.Properties.Resources.reso
 D:\VS_Practice\SN_Sender\SN_Sender\obj\Debug\SN_Sender.csproj.GenerateResource.Cache
 D:\VS_Practice\SN_Sender\SN_Sender\obj\Debug\SN_Sender.exe
 D:\VS_Practice\SN_Sender\SN_Sender\obj\Debug\SN_Sender.pdb
+D:\Users\LENOVO\Documents\GitHub\SN_SENDER\SN_Sender\SN_Sender\bin\Debug\SN_Sender.exe.config
+D:\Users\LENOVO\Documents\GitHub\SN_SENDER\SN_Sender\SN_Sender\bin\Debug\SN_Sender.exe
+D:\Users\LENOVO\Documents\GitHub\SN_SENDER\SN_Sender\SN_Sender\bin\Debug\SN_Sender.pdb
+D:\Users\LENOVO\Documents\GitHub\SN_SENDER\SN_Sender\SN_Sender\obj\Debug\SN_Sender.Form1.resources
+D:\Users\LENOVO\Documents\GitHub\SN_SENDER\SN_Sender\SN_Sender\obj\Debug\SN_Sender.Properties.Resources.resources
+D:\Users\LENOVO\Documents\GitHub\SN_SENDER\SN_Sender\SN_Sender\obj\Debug\SN_Sender.csproj.GenerateResource.cache
+D:\Users\LENOVO\Documents\GitHub\SN_SENDER\SN_Sender\SN_Sender\obj\Debug\SN_Sender.csproj.CoreCompileInputs.cache
+D:\Users\LENOVO\Documents\GitHub\SN_SENDER\SN_Sender\SN_Sender\obj\Debug\SN_Sender.exe
+D:\Users\LENOVO\Documents\GitHub\SN_SENDER\SN_Sender\SN_Sender\obj\Debug\SN_Sender.pdb
