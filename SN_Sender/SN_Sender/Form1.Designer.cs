@@ -61,9 +61,12 @@
             this.label6 = new System.Windows.Forms.Label();
             this.timer2 = new System.Windows.Forms.Timer(this.components);
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.button_recovery = new System.Windows.Forms.Button();
-            this.label8 = new System.Windows.Forms.Label();
             this.label_recovery_result = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.button_recovery = new System.Windows.Forms.Button();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.comboBox_machineType = new System.Windows.Forms.ComboBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -73,6 +76,7 @@
             this.groupBox5.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox7.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -89,11 +93,11 @@
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
-            this.groupBox1.Location = new System.Drawing.Point(17, 16);
+            this.groupBox1.Location = new System.Drawing.Point(13, 139);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(4);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(4);
-            this.groupBox1.Size = new System.Drawing.Size(276, 575);
+            this.groupBox1.Size = new System.Drawing.Size(276, 445);
             this.groupBox1.TabIndex = 0;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Serial Port";
@@ -388,15 +392,14 @@
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "步骤3:";
             // 
-            // button_recovery
+            // label_recovery_result
             // 
-            this.button_recovery.Location = new System.Drawing.Point(11, 22);
-            this.button_recovery.Name = "button_recovery";
-            this.button_recovery.Size = new System.Drawing.Size(157, 37);
-            this.button_recovery.TabIndex = 0;
-            this.button_recovery.Text = "恢复默认信息";
-            this.button_recovery.UseVisualStyleBackColor = true;
-            this.button_recovery.Click += new System.EventHandler(this.button_recovery_Click);
+            this.label_recovery_result.AutoSize = true;
+            this.label_recovery_result.Location = new System.Drawing.Point(112, 77);
+            this.label_recovery_result.Name = "label_recovery_result";
+            this.label_recovery_result.Size = new System.Drawing.Size(39, 15);
+            this.label_recovery_result.TabIndex = 5;
+            this.label_recovery_result.Text = "    ";
             // 
             // label8
             // 
@@ -407,20 +410,57 @@
             this.label8.TabIndex = 4;
             this.label8.Text = "恢复结果：";
             // 
-            // label_recovery_result
+            // button_recovery
             // 
-            this.label_recovery_result.AutoSize = true;
-            this.label_recovery_result.Location = new System.Drawing.Point(112, 77);
-            this.label_recovery_result.Name = "label_recovery_result";
-            this.label_recovery_result.Size = new System.Drawing.Size(39, 15);
-            this.label_recovery_result.TabIndex = 5;
-            this.label_recovery_result.Text = "    ";
+            this.button_recovery.Location = new System.Drawing.Point(11, 22);
+            this.button_recovery.Name = "button_recovery";
+            this.button_recovery.Size = new System.Drawing.Size(157, 37);
+            this.button_recovery.TabIndex = 0;
+            this.button_recovery.Text = "恢复默认信息";
+            this.button_recovery.UseVisualStyleBackColor = true;
+            this.button_recovery.Click += new System.EventHandler(this.button_recovery_Click);
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.comboBox_machineType);
+            this.groupBox8.Controls.Add(this.label9);
+            this.groupBox8.Location = new System.Drawing.Point(13, 15);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(276, 126);
+            this.groupBox8.TabIndex = 20;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "Machine Type";
+            // 
+            // comboBox_machineType
+            // 
+            this.comboBox_machineType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_machineType.FormattingEnabled = true;
+            this.comboBox_machineType.Items.AddRange(new object[] {
+            "O2FLO",
+            "O2FLO PRO"});
+            this.comboBox_machineType.Location = new System.Drawing.Point(116, 53);
+            this.comboBox_machineType.Margin = new System.Windows.Forms.Padding(4);
+            this.comboBox_machineType.Name = "comboBox_machineType";
+            this.comboBox_machineType.Size = new System.Drawing.Size(148, 23);
+            this.comboBox_machineType.TabIndex = 13;
+            this.comboBox_machineType.SelectedValueChanged += new System.EventHandler(this.comboBox_machineType_SelectedValueChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(13, 56);
+            this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(71, 15);
+            this.label9.TabIndex = 2;
+            this.label9.Text = "Machine:";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1061, 604);
+            this.Controls.Add(this.groupBox8);
             this.Controls.Add(this.groupBox7);
             this.Controls.Add(this.groupBox6);
             this.Controls.Add(this.groupBox5);
@@ -431,7 +471,7 @@
             this.MinimizeBox = false;
             this.Name = "Form1";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "SN Sender";
+            this.Text = "SN Sender(1.0.1)";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
@@ -446,6 +486,8 @@
             this.groupBox6.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
+            this.groupBox8.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -486,6 +528,9 @@
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button button_recovery;
         private System.Windows.Forms.Label label_recovery_result;
+        private System.Windows.Forms.GroupBox groupBox8;
+        private System.Windows.Forms.ComboBox comboBox_machineType;
+        private System.Windows.Forms.Label label9;
     }
 }
 
