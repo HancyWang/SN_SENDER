@@ -67,6 +67,10 @@ namespace SN_Sender
             MACHINE_O2FLO_PRO   =2
         }
         private MACHINE_TYPE m_machineType = MACHINE_TYPE.MACHINE_O2FLO;
+        private int m_SN_send_cnt=0;
+        private int m_synRTC_send_cnt = 0;
+        private int m_recovery_send_cnt = 0;
+
 
         private const string str_O2FLO = "O2FLO";
         private const string str_O2FLO_PRO = "O2FLO PRO";
@@ -523,6 +527,12 @@ namespace SN_Sender
             //    textBox_SN_recv.Clear();
             //}
 
+            //清空之前的结果
+            this.textBox_SN_recv.Text = "";
+            this.pictureBox2.Image = null;
+
+            this.button_SN_send.Enabled = false;
+
             string str_send = comboBox_SN_send.Text;
             //1.去除开头和结尾的空格字符
             str_send = str_send.Trim();
@@ -628,6 +638,47 @@ namespace SN_Sender
         private void timer2_Tick(object sender, EventArgs e)
         {
             GetSystemDateTime();
+
+            int TIM_LIMT = 2000;  //2S后解除
+            if (this.button_SN_send.Enabled == false)
+            {
+                if (this.timer2.Interval * m_SN_send_cnt > TIM_LIMT)
+                {
+                    m_SN_send_cnt = 0;
+                    this.button_SN_send.Enabled = true;
+                }
+                else
+                {
+                    m_SN_send_cnt++;
+                }
+            }
+
+            if (this.button_syn_RTC_to_device.Enabled == false)
+            {
+                if (this.timer2.Interval * m_synRTC_send_cnt > TIM_LIMT)
+                {
+                    m_synRTC_send_cnt = 0;
+                    this.button_syn_RTC_to_device.Enabled = true;
+                }
+                else
+                {
+                    m_synRTC_send_cnt++;
+                }
+            }
+
+            if (this.button_recovery.Enabled == false)
+            {
+                if (this.timer2.Interval * m_recovery_send_cnt > TIM_LIMT)
+                {
+                    m_recovery_send_cnt = 0;
+                    this.button_recovery.Enabled = true;
+                }
+                else
+                {
+                    m_recovery_send_cnt++;
+                }
+            }
+
         }
 
         private void button_syn_RTC_to_device_Click(object sender, EventArgs e)
@@ -637,6 +688,8 @@ namespace SN_Sender
                 MessageBox.Show("请先连接串口!");
                 return;
             }
+
+            this.button_syn_RTC_to_device.Enabled = false;
 
             label_syn_result.Text = ""; //清空上一次结果
 
@@ -708,7 +761,7 @@ namespace SN_Sender
                 MessageBox.Show("请先连接串口!");
                 return;
             }
-
+            this.button_recovery.Enabled = false;
             label_recovery_result.Text = ""; //清空上一次结果
 
 
