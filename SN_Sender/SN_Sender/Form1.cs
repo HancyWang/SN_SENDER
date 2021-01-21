@@ -597,10 +597,11 @@ namespace SN_Sender
             else if (m_machineType == MACHINE_TYPE.MACHINE_O2FLO_PRO)
             {
                 //发送SN到下位机
-                byte[] buffer = new byte[5 + 10 + 2];  //5+10+2
+                byte SEND_LEN = 5 + 10 + 2;        //发送长度
+                byte[] buffer = new byte[SEND_LEN];  
                 buffer[INDEX_O2FLOPRO_HEAD0] = HEAD_MARK0;
                 buffer[INDEX_O2FLOPRO_HEAD1] = HEAD_MARK1;
-                buffer[INDEX_O2FLOPRO_LEN] = 5+10;   
+                buffer[INDEX_O2FLOPRO_LEN] = Convert.ToByte(SEND_LEN-2);   
                 buffer[INDEX_O2FLOPRO_DEVICE_ID] = 0x00;         //0x00表示PC
                 buffer[INDEX_O2FLOPRO_CMD_ID] = 0x36;
 
@@ -610,7 +611,7 @@ namespace SN_Sender
                 }
 
                 set_checkSum(buffer);
-                this.serialPort1.Write(buffer, 0, Convert.ToInt32(buffer[INDEX_O2FLOPRO_LEN]) + 2);
+                this.serialPort1.Write(buffer, 0, SEND_LEN);
             }
         }
 
