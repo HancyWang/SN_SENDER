@@ -66,7 +66,7 @@ namespace SN_Sender
             MACHINE_O2FLO       =1,
             MACHINE_O2FLO_PRO   =2
         }
-        private MACHINE_TYPE m_machineType = MACHINE_TYPE.MACHINE_O2FLO;
+        private MACHINE_TYPE m_machineType = MACHINE_TYPE.MACHINE_O2FLO_PRO;
         private int m_SN_send_cnt=0;
         private int m_synRTC_send_cnt = 0;
         private int m_recovery_send_cnt = 0;
@@ -124,7 +124,8 @@ namespace SN_Sender
                 this.comboBox_portName.SelectedIndex = 0;
             }
 
-            this.comboBox_machineType.Text = str_O2FLO;
+            //this.comboBox_machineType.Text = str_O2FLO;
+            this.comboBox_machineType.Text = str_O2FLO_PRO;
 
             this.comboBox_baud.Text = "115200";
             this.comboBox_dataBits.Text = "8";
@@ -150,6 +151,9 @@ namespace SN_Sender
             System.Windows.Forms.Control.CheckForIllegalCrossThreadCalls = false;  //调试的时候可以打开这条语句
             LoadPicture();
             Init_SerialPort();
+            //加载配置文件
+            //Load_cfg_file();
+
         }
 
         private void button_serialPort_connect_Click(object sender, EventArgs e)
@@ -801,7 +805,7 @@ namespace SN_Sender
 
         private void comboBox_machineType_SelectedValueChanged(object sender, EventArgs e)
         {
-            if (m_machineType==MACHINE_TYPE.MACHINE_O2FLO)
+            if (m_machineType == MACHINE_TYPE.MACHINE_O2FLO)
             {
                 this.comboBox_machineType.Text = str_O2FLO_PRO;
                 m_machineType = MACHINE_TYPE.MACHINE_O2FLO_PRO;
@@ -811,7 +815,7 @@ namespace SN_Sender
                 this.comboBox_machineType.Text = str_O2FLO;
                 m_machineType = MACHINE_TYPE.MACHINE_O2FLO;
             }
-            
+
         }
     }
 }

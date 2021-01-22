@@ -434,6 +434,7 @@
             // comboBox_machineType
             // 
             this.comboBox_machineType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboBox_machineType.Enabled = false;
             this.comboBox_machineType.FormattingEnabled = true;
             this.comboBox_machineType.Items.AddRange(new object[] {
             "O2FLO",

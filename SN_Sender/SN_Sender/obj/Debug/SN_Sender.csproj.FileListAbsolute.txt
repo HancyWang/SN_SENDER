@@ -16,4 +16,3 @@ D:\Users\LENOVO\Documents\GitHub\SN_SENDER\SN_Sender\SN_Sender\obj\Debug\SN_Send
 D:\Users\LENOVO\Documents\GitHub\SN_SENDER\SN_Sender\SN_Sender\obj\Debug\SN_Sender.csproj.CoreCompileInputs.cache
 D:\Users\LENOVO\Documents\GitHub\SN_SENDER\SN_Sender\SN_Sender\obj\Debug\SN_Sender.exe
 D:\Users\LENOVO\Documents\GitHub\SN_SENDER\SN_Sender\SN_Sender\obj\Debug\SN_Sender.pdb
-D:\Users\LENOVO\Documents\GitHub\SN_SENDER\SN_Sender\SN_Sender\obj\Debug\SN_Sender.csprojAssemblyReference.cache
