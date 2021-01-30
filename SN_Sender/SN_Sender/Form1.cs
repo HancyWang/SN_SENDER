@@ -127,6 +127,7 @@ namespace SN_Sender
             //this.comboBox_machineType.Text = str_O2FLO;
             this.comboBox_machineType.Text = str_O2FLO_PRO;
 
+            this.serialPort1.BaudRate = 19200;
             this.comboBox_baud.Text = "19200";
             this.comboBox_dataBits.Text = "8";
             this.comboBox_stopBit.Text = "one";
@@ -403,6 +404,22 @@ namespace SN_Sender
 
         }
 
+        private bool IsCheckSumOK_O2FLO(byte[] p_Array, int len)
+        {
+            //crc校验 LEN+DEVICE ID+Command ID+Data  ,不包含头AA 55
+            UInt16 result = 0;
+            //byte[] tempArray = p_Array.Skip(1).ToArray();
+            result = crc_16(p_Array, (UInt16)(len - 2));
+            if ((p_Array[len - 1] << 8) + p_Array[len - 2] == result)  //CheckSum的高位在后，低位在前
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         private bool IsCheckSumOK(byte[] p_Array, int len)
         {
             //crc校验 LEN+DEVICE ID+Command ID+Data  ,不包含头AA 55
@@ -439,16 +456,16 @@ namespace SN_Sender
                         {
                             break;
                         }
-                        int checksum = 256 * Convert.ToInt32(m_buffer[len]) + Convert.ToInt32(m_buffer[len + 1]);
-                        int sum = 0;
-                        for (int i = 1; i < len; i++) //校验和不包含包头
-                        {
-                            sum += Convert.ToInt32(m_buffer[i]);
-                        }
+                        //int checksum = 256 * Convert.ToInt32(m_buffer[len]) + Convert.ToInt32(m_buffer[len + 1]);
+                        //int sum = 0;
+                        //for (int i = 1; i < len; i++) //校验和不包含包头
+                        //{
+                        //    sum += Convert.ToInt32(m_buffer[i]);
+                        //}
                         //MessageBox.Show(sum.ToString());
-                        if (checksum == sum)
+                        byte[] tmp_buffer = m_buffer.ToArray();
+                        if (IsCheckSumOK_O2FLO(tmp_buffer, len + 2))
                         {
-
                             ParseData2Lists();
                         }
                         else
@@ -516,6 +533,19 @@ namespace SN_Sender
 
                 UInt16 len = pArray[INDEX_O2FLOPRO_LEN];              //获取帧的长度
                 UInt16 crc16 = (UInt16)(crc_16(newArray, (UInt16)(len - 2)));
+                pArray[len] = (byte)(crc16 % 256);               //CheckSum1          
+                pArray[len + 1] = (byte)(crc16 / 256);             //CheckSum2
+            }
+        }
+
+        void set_checkSum_for_O2FLO(byte[] pArray)
+        {
+            if (pArray[0] == 0xFF)   //如果头是0xFF
+            {
+                //byte[] newArray = pArray.Skip(INDEX_O2FLOPRO_LEN).ToArray();
+
+                UInt16 len = pArray[INDEX_O2FLO_LEN];              //获取帧的长度,不包含最后两位
+                UInt16 crc16 = (UInt16)(crc_16(pArray, len));
                 pArray[len] = (byte)(crc16 % 256);               //CheckSum1          
                 pArray[len + 1] = (byte)(crc16 / 256);             //CheckSum2
             }
@@ -608,7 +638,7 @@ namespace SN_Sender
                 //buffer[Convert.ToInt32(buffer[INDEX_O2FLO_LEN])] = Convert.ToByte(sum / 256);   //checksum1
                 //buffer[Convert.ToInt32(buffer[INDEX_O2FLO_LEN]) + 1] = Convert.ToByte(sum % 256); //checksum2
 
-                set_checkSum(buffer);
+                set_checkSum_for_O2FLO(buffer);
                 this.serialPort1.Write(buffer, 0, Convert.ToInt32(buffer[INDEX_O2FLO_LEN]) + 2);
                 #endregion
             }
@@ -736,7 +766,7 @@ namespace SN_Sender
                 //}
                 //buffer[Convert.ToInt32(buffer[INDEX_O2FLO_LEN])] = Convert.ToByte(sum / 256);
                 //buffer[Convert.ToInt32(buffer[INDEX_O2FLO_LEN]) + 1] = Convert.ToByte(sum % 256);
-                set_checkSum(buffer);
+                set_checkSum_for_O2FLO(buffer);
                 this.serialPort1.Write(buffer, 0, Convert.ToInt32(buffer[INDEX_O2FLO_LEN]) + 2);
             }
             else if (m_machineType == MACHINE_TYPE.MACHINE_O2FLO_PRO)
@@ -790,7 +820,7 @@ namespace SN_Sender
                 //}
                 //buffer[Convert.ToInt32(buffer[INDEX_O2FLO_LEN])] = Convert.ToByte(sum / 256);
                 //buffer[Convert.ToInt32(buffer[INDEX_O2FLO_LEN]) + 1] = Convert.ToByte(sum % 256);
-                set_checkSum(buffer);
+                set_checkSum_for_O2FLO(buffer);
                 this.serialPort1.Write(buffer, 0, Convert.ToInt32(buffer[INDEX_O2FLO_LEN]) + 2);
             }
             else if (m_machineType == MACHINE_TYPE.MACHINE_O2FLO_PRO)
