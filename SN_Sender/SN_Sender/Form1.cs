@@ -127,7 +127,7 @@ namespace SN_Sender
             //this.comboBox_machineType.Text = str_O2FLO;
             this.comboBox_machineType.Text = str_O2FLO_PRO;
 
-            this.comboBox_baud.Text = "115200";
+            this.comboBox_baud.Text = "19200";
             this.comboBox_dataBits.Text = "8";
             this.comboBox_stopBit.Text = "one";
             this.comboBox_parity.Text = "none";
@@ -531,11 +531,7 @@ namespace SN_Sender
             //    textBox_SN_recv.Clear();
             //}
 
-            //清空之前的结果
-            this.textBox_SN_recv.Text = "";
-            this.pictureBox2.Image = null;
-
-            this.button_SN_send.Enabled = false;
+            
 
             string str_send = comboBox_SN_send.Text;
             //1.去除开头和结尾的空格字符
@@ -569,7 +565,7 @@ namespace SN_Sender
             //3. 检查SN的长度
             if (str_send.Length != 10)
             {
-                MessageBox.Show("请检查SN的长度!");
+                MessageBox.Show("SN的长度为10位，请检查!");
                 return;
             }
 
@@ -578,6 +574,12 @@ namespace SN_Sender
                 MessageBox.Show("Please connect serial port first!");
                 return;
             }
+
+            //4.清空之前的结果
+            this.textBox_SN_recv.Text = "";
+            this.pictureBox2.Image = null;
+
+            this.button_SN_send.Enabled = false;
 
 
             //根据不同的型号发送不同的数据
@@ -591,20 +593,22 @@ namespace SN_Sender
                 buffer[INDEX_O2FLO_CMDTYPE] = 0x01;
                 buffer[INDEX_O2FLO_FRAME_ID] = 0x36;
 
-                int sum = 0;
+                //int sum = 0;
                 //buffer[4] = 86;
                 for (int i = 4; i < 18 - 4; i++)
                 {
                     buffer[i] = Convert.ToByte(str_send[i - 4]);
                 }
 
-                for (int i = 1; i < Convert.ToInt32(buffer[INDEX_O2FLO_LEN]); i++)
-                {
-                    sum += buffer[i];
-                }
+                //for (int i = 1; i < Convert.ToInt32(buffer[INDEX_O2FLO_LEN]); i++)
+                //{
+                //    sum += buffer[i];
+                //}
 
-                buffer[Convert.ToInt32(buffer[INDEX_O2FLO_LEN])] = Convert.ToByte(sum / 256);   //checksum1
-                buffer[Convert.ToInt32(buffer[INDEX_O2FLO_LEN]) + 1] = Convert.ToByte(sum % 256); //checksum2
+                //buffer[Convert.ToInt32(buffer[INDEX_O2FLO_LEN])] = Convert.ToByte(sum / 256);   //checksum1
+                //buffer[Convert.ToInt32(buffer[INDEX_O2FLO_LEN]) + 1] = Convert.ToByte(sum % 256); //checksum2
+
+                set_checkSum(buffer);
                 this.serialPort1.Write(buffer, 0, Convert.ToInt32(buffer[INDEX_O2FLO_LEN]) + 2);
                 #endregion
             }
@@ -725,13 +729,14 @@ namespace SN_Sender
                 buffer[4 + 6] = min;
                 buffer[4 + 7] = sec;
 
-                int sum = 0;
-                for (int i = 1; i < Convert.ToInt32(buffer[INDEX_O2FLO_LEN]); i++)
-                {
-                    sum += buffer[i];
-                }
-                buffer[Convert.ToInt32(buffer[INDEX_O2FLO_LEN])] = Convert.ToByte(sum / 256);
-                buffer[Convert.ToInt32(buffer[INDEX_O2FLO_LEN]) + 1] = Convert.ToByte(sum % 256);
+                //int sum = 0;
+                //for (int i = 1; i < Convert.ToInt32(buffer[INDEX_O2FLO_LEN]); i++)
+                //{
+                //    sum += buffer[i];
+                //}
+                //buffer[Convert.ToInt32(buffer[INDEX_O2FLO_LEN])] = Convert.ToByte(sum / 256);
+                //buffer[Convert.ToInt32(buffer[INDEX_O2FLO_LEN]) + 1] = Convert.ToByte(sum % 256);
+                set_checkSum(buffer);
                 this.serialPort1.Write(buffer, 0, Convert.ToInt32(buffer[INDEX_O2FLO_LEN]) + 2);
             }
             else if (m_machineType == MACHINE_TYPE.MACHINE_O2FLO_PRO)
@@ -778,13 +783,14 @@ namespace SN_Sender
                 buffer[INDEX_O2FLO_FRAME_ID] = 0x42;
 
 
-                int sum = 0;
-                for (int i = 1; i < Convert.ToInt32(buffer[INDEX_O2FLO_LEN]); i++)
-                {
-                    sum += buffer[i];
-                }
-                buffer[Convert.ToInt32(buffer[INDEX_O2FLO_LEN])] = Convert.ToByte(sum / 256);
-                buffer[Convert.ToInt32(buffer[INDEX_O2FLO_LEN]) + 1] = Convert.ToByte(sum % 256);
+                //int sum = 0;
+                //for (int i = 1; i < Convert.ToInt32(buffer[INDEX_O2FLO_LEN]); i++)
+                //{
+                //    sum += buffer[i];
+                //}
+                //buffer[Convert.ToInt32(buffer[INDEX_O2FLO_LEN])] = Convert.ToByte(sum / 256);
+                //buffer[Convert.ToInt32(buffer[INDEX_O2FLO_LEN]) + 1] = Convert.ToByte(sum % 256);
+                set_checkSum(buffer);
                 this.serialPort1.Write(buffer, 0, Convert.ToInt32(buffer[INDEX_O2FLO_LEN]) + 2);
             }
             else if (m_machineType == MACHINE_TYPE.MACHINE_O2FLO_PRO)
